@@ -16,3 +16,7 @@ resource "dockerhub_repository" "main" {
   description = "My minecraft server infrastructure"
   full_description = file("README.md")
 }
+
+provider "aws" {
+    region = "us-east-1"
+}

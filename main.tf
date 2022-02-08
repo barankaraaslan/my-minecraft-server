@@ -39,7 +39,8 @@ resource "aws_route_table" "main" {
   vpc_id = aws_vpc.main.id
 
   route {
-    cidr_block = aws_vpc.main.cidr_block
+    cidr_block = aws_subnet.main.cidr_block
+    gateway_id = aws_internet_gateway.id
   }
 
   tags = {

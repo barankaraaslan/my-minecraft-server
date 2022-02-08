@@ -82,7 +82,7 @@ resource "aws_ecs_service" "main" {
   deployment_maximum_percent = 100
   deployment_minimum_healthy_percent = 0
   network_configuration {
-    subnets = ${module.vpc.public_subnets}
+    subnets = module.vpc.public_subnets
     assign_public_ip = true
   }
 }

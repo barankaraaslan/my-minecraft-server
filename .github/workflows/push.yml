@@ -16,7 +16,7 @@ jobs:
     - name: Build the Docker image
       run: |
         docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
-        docker build -t cloud-shell .
-        docker tag cloud-shell barankaraaslan/cloud-shell:${{ github.sha }}
-        docker tag cloud-shell barankaraaslan/cloud-shell:latest
-        docker image push --all-tags barankaraaslan/cloud-shell
+        docker build -t my-minecraft-server .
+        docker tag my-minecraft-server barankaraaslan/my-minecraft-server:${{ github.sha }}
+        docker tag my-minecraft-server barankaraaslan/my-minecraft-server:latest
+        docker image push --all-tags barankaraaslan/my-minecraft-server

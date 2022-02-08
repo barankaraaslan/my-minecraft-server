@@ -56,6 +56,11 @@ resource "aws_subnet" "main" {
   }
 }
 
+resource "aws_route_table_association" "main" {
+  subnet_id      = aws_subnet.main.id
+  route_table_id = aws_route_table.main.id
+}
+
 resource "aws_ecs_cluster" "main" {
   name = "my-minecraft-server"
 }

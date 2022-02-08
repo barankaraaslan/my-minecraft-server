@@ -56,7 +56,7 @@ resource "aws_ecs_task_definition" "main" {
     "image": "nginx",
     "links":[],
     "mountPoints":[],
-    "name": "nginx-test",
+    "name": "testing",
     "portMappings":[
       {
         "containerPort": 80,
@@ -66,6 +66,7 @@ resource "aws_ecs_task_definition" "main" {
     ],
     "ulimits":[],
     "volumesFrom":[],
+    "environment": []
   }
 ]
 DEFINITION

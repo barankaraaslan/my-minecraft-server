@@ -23,14 +23,14 @@ provider "aws" {
 
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
-  tags {
+  tags = {
     Name = "my-minecraft-server"
   }
 }
 
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
-  tags {
+  tags = {
     Name = "my-minecraft-server"
   }
 }
@@ -38,7 +38,7 @@ resource "aws_internet_gateway" "main" {
 resource "aws_subnet" "main" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.1.0/24"
-  tags {
+  tags = {
     Name = "my-minecraft-server"
   }
 }

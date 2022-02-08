@@ -21,14 +21,17 @@ provider "aws" {
   region = "us-east-1"
 }
 
-module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
 
-  name = "my-minecraft-server"
-  cidr = "10.0.0.0/16"
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.main.id
+}
 
-  azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
-  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+resource "aws_subnet" "main" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
 }
 
 resource "aws_ecs_cluster" "main" {
@@ -80,7 +83,7 @@ resource "aws_ecs_service" "main" {
   deployment_maximum_percent = 100
   deployment_minimum_healthy_percent = 0
   network_configuration {
-    subnets = module.vpc.public_subnets
+    subnets = [ aws_subnet.main.id ]
     assign_public_ip = true
   }
 }

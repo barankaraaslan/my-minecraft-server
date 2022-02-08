@@ -1,0 +1,22 @@
+name: Build and Push Image
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'Dockerfile'
+      - '.github/workflows/push.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the Docker image
+      run: |
+        docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
+        docker build -t cloud-shell .
+        docker tag cloud-shell barankaraaslan/cloud-shell:${{ github.sha }}
+        docker tag cloud-shell barankaraaslan/cloud-shell:latest
+        docker image push --all-tags barankaraaslan/cloud-shell

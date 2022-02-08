@@ -18,7 +18,7 @@ resource "dockerhub_repository" "main" {
 }
 
 provider "aws" {
-    region = "us-east-1"
+  region = "us-east-1"
 }
 
 module "vpc" {
@@ -70,4 +70,19 @@ resource "aws_ecs_task_definition" "main" {
   }
 ]
 DEFINITION
+}
+
+resource "aws_ecs_service" "main" {
+  name            = "my-minecraft-server"
+  cluster         = aws_ecs_cluster.main.id
+  task_definition = aws_ecs_task_definition.main.arn
+  desired_count   = 1
+  force_new_deployment = true
+  launch_type = "FARGATE"
+  deployment_maximum_percent = 100
+  deployment_minimum_healthy_percent = 0
+  network_configuration {
+    subnets = ${module.vpc.public_subnets}
+    assign_public_ip = true
+  }
 }

@@ -40,7 +40,7 @@ resource "aws_route_table" "main" {
 
   route {
     cidr_block = aws_subnet.main.cidr_block
-    gateway_id = aws_internet_gateway.id
+    gateway_id = aws_internet_gateway.main.id
   }
 
   tags = {

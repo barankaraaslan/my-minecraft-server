@@ -56,8 +56,8 @@ resource "aws_subnet" "main" {
   }
 }
 
-resource "aws_main_route_table_association" "main" {
-  vpc_id = aws_vpc.main.id
+resource "aws_route_table_association" "main" {
+  subnet_id      = aws_subnet.main.id
   route_table_id = aws_route_table.main.id
 }
 

@@ -29,6 +29,14 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_security_group_rule" "in80" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  security_group_id = aws_vpc.main.default_security_group_id
+}
+
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
   tags = {

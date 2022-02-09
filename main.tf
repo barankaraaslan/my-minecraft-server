@@ -112,6 +112,7 @@ resource "aws_ecs_service" "main" {
   deployment_minimum_healthy_percent = 0
   network_configuration {
     subnets = [ aws_subnet.main.id ]
+    security_groups = [ aws_vpc.default_security_group_id ]
     assign_public_ip = true
   }
 }
